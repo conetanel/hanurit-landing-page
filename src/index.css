@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@theme {
+  --font-sans: "Assistant", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); } /* זז מימין לשמאל עבור עברית (RTL) */
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused; /* נעצר בעת מעבר עכבר (אופציונלי ונוח) */
+}
