@@ -4,11 +4,11 @@ const LandingPage = () => {
   // הנתיבים מעודכנים לפי הקבצים שלך ותמונת ההדמיה מהאתר של עינב
   const images = {
     hero: "https://enav.co.il/wp-content/uploads/2024/12/0077_final-scaled.jpg",
-    kitchen: "/חומרים/מטבח.jpg",
-    livingRoom: "/חומרים/סלון מטבח.jpg",
-    bathroom: "/חומרים/אמבטיה.jpg",
-    bedroom: "/חומרים/חדר שינה.jpg",
-    balcony: "/חומרים/מרפסת.jpg"
+    kitchen: "מטבח.jpg",
+    livingRoom: "סלון מטבח.jpg",
+    bathroom: "אמבטיה.jpg",
+    bedroom: "חדר שינה.jpg",
+    balcony: "מרפסת.jpg"
   };
 
   const projectUrl = "https://enav.co.il/new-projects/%d7%94%d7%a0%d7%95%d7%a8%d7%99%d7%aa-%d7%99%d7%a8%d7%95%d7%a9%d7%9c%d7%99%d7%9d/";
@@ -16,6 +16,7 @@ const LandingPage = () => {
   // --- States ---
   const [showSticky, setShowSticky] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [isPhoneExpanded, setIsPhoneExpanded] = useState(false); // סטייט חדש לפתיחת הכפתור הצף
 
   // מערך תמונות לגלריה (לפי הסדר שמוצג בסקשן)
   const galleryImages = [images.livingRoom, images.kitchen, images.bathroom, images.bedroom];
@@ -28,6 +29,7 @@ const LandingPage = () => {
         setShowSticky(true);
       } else {
         setShowSticky(false);
+        setIsPhoneExpanded(false); // סוגר את הכפתור חזרה כשהוא נעלם
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -62,9 +64,11 @@ const LandingPage = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-slate-100 font-normal max-w-xl leading-relaxed drop-shadow-md px-2 mt-8">
+              <span className="font-bold text-white">ללא תיווך!!!</span><br /><br />
               <span className="font-bold text-white">דירת 50 מ"ר משופצת</span> בעיר גנים ירושלים. <br />
               תזרים יציב של <span className="font-bold text-white">4,500 ש״ח</span> בחודש מהרגע הראשון,<br />
               <span className="font-bold text-white">דירת תמורה של 75 מ"ר</span> בפרויקט "בינוי-פינוי".
+
             </p>
           </div>
 
@@ -97,7 +101,6 @@ const LandingPage = () => {
               className="bg-amber-500 hover:bg-amber-400 text-slate-900 text-xl font-bold py-4 px-10 rounded-full transition-all hover:scale-105 flex items-center justify-center gap-3 shadow-[0_4px_20px_rgba(245,158,11,0.5)] cursor-pointer"
             >
               לפרטים ותיאום סיור
-              {/* חץ שמצביע למטה (במקום שמאלה) כי אנחנו יורדים סקשן */}
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
           </div>
@@ -105,10 +108,9 @@ const LandingPage = () => {
         </div>
       </header>
 
-      {/* 2. ROI Section - הוספנו מזהה roi-section */}
+      {/* 2. ROI Section */}
       <section id="roi-section" className="bg-slate-900 relative z-20 px-4 md:px-8 max-w-7xl mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
           <div className="bg-white rounded-xl shadow-xl p-8 border-t-4 border-amber-500 text-center transition hover:-translate-y-1 duration-300">
             <div className="w-14 h-14 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
               ₪
@@ -121,7 +123,7 @@ const LandingPage = () => {
 
           <div className="bg-white rounded-xl shadow-xl p-8 border-t-4 border-amber-500 text-center transition hover:-translate-y-1 duration-300">
             <div className="w-14 h-14 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
             </div>
             <h3 className="text-2xl font-bold text-slate-900 mb-2">מצב הנכס כיום</h3>
             <p className="text-slate-600 leading-relaxed">
@@ -131,18 +133,17 @@ const LandingPage = () => {
 
           <div className="bg-white rounded-xl shadow-xl p-8 border-t-4 border-amber-500 text-center transition hover:-translate-y-1 duration-300">
             <div className="w-14 h-14 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
             </div>
             <h3 className="text-2xl font-bold text-slate-900 mb-2">2,090,000 ש"ח</h3>
             <p className="text-slate-600 leading-relaxed">
               המחיר המבוקש. ישנה גמישות לרציניים לקראת סגירה מהירה.
             </p>
           </div>
-
         </div>
       </section>
 
-      {/* 4. Gallery Section - הוספנו מזהה gallery-section ופתיחת Lightbox */}
+      {/* 4. Gallery Section */}
       <section id="gallery-section" className="bg-slate-900 py-20 px-4 md:px-8 text-white text-center pt-24">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4">מוכנה להשכרה: הדירה כיום</h2>
         <p className="text-slate-400 max-w-2xl mx-auto mb-12 text-lg">
@@ -187,9 +188,17 @@ const LandingPage = () => {
                 <p className="text-lg"><strong>דירת התמורה:</strong> כ-75 מ"ר + מרפסת שמש, מחסן וחניה פרטית.</p>
               </li>
             </ul>
-            <a href={projectUrl} target="_blank" rel="noopener noreferrer" className="inline-block bg-slate-900 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:bg-slate-800 transition">
-              למעבר לעמוד הפרויקט באתר היזם
-            </a>
+            
+            {/* כפתורים לאתר היזם ומנהל התכנון */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+              <a href={projectUrl} target="_blank" rel="noopener noreferrer" className="inline-block bg-slate-900 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:bg-slate-800 transition text-center">
+                למעבר לעמוד הפרויקט באתר היזם
+              </a>
+              <a href="https://mavat.iplan.gov.il/SV4/1/1005332842/310" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-slate-900 border-2 border-slate-900 font-semibold px-8 py-4 rounded-lg shadow-md hover:bg-slate-50 transition text-center">
+                מנהל התכנון
+              </a>
+            </div>
+            
           </div>
 
           <div className="lg:w-1/2 bg-slate-200 rounded-2xl overflow-hidden shadow-xl">
@@ -245,7 +254,6 @@ const LandingPage = () => {
           </button>
           
           <div className="relative flex items-center justify-between w-full max-w-5xl h-full">
-            {/* כפתור הקודם (ימינה ב-RTL) */}
             <button 
               onClick={(e) => { e.stopPropagation(); setLightboxIndex(prev => prev === 0 ? galleryImages.length - 1 : prev - 1); }}
               className="text-white text-4xl sm:text-6xl hover:text-amber-500 transition z-[110] p-2"
@@ -259,7 +267,6 @@ const LandingPage = () => {
               className="max-w-[75%] max-h-[85vh] object-contain shadow-2xl rounded-lg" 
             />
 
-            {/* כפתור הבא (שמאלה ב-RTL) */}
             <button 
               onClick={(e) => { e.stopPropagation(); setLightboxIndex(prev => prev === galleryImages.length - 1 ? 0 : prev + 1); }}
               className="text-white text-4xl sm:text-6xl hover:text-amber-500 transition z-[110] p-2"
@@ -270,13 +277,27 @@ const LandingPage = () => {
         </div>
       )}
 
-      {/* Sticky Call Button - מופיע רק כשאנחנו גוללים למטה כדי לא להסתיר את ההירו */}
+      {/* Sticky Call Button המעודכן - מופיע רק כשאנחנו גוללים למטה ונפתח בלחיצה */}
       <a
         href="tel:0515505062"
-        className={`fixed bottom-6 left-6 bg-amber-500 text-slate-900 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:bg-amber-400 hover:scale-110 transition-all duration-300 z-50 ${showSticky ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
-        aria-label="חייג עכשיו"
+        onClick={(e) => {
+          if (!isPhoneExpanded) {
+            e.preventDefault();
+            setIsPhoneExpanded(true);
+          }
+        }}
+        dir="ltr"
+        className={`fixed bottom-6 left-6 z-50 flex items-center bg-amber-500 text-slate-900 h-16 rounded-full shadow-2xl transition-all duration-400 ease-out overflow-hidden hover:bg-amber-400 cursor-pointer ${
+          showSticky ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        } ${isPhoneExpanded ? 'w-[290px]' : 'w-16'}`}
       >
-        📞
+        <div className="w-16 h-16 flex items-center justify-center flex-shrink-0 text-3xl">
+          📞
+        </div>
+        <div dir="rtl" className={`flex items-center gap-2 whitespace-nowrap font-bold text-lg transition-opacity duration-300 delay-100 ${isPhoneExpanded ? 'opacity-100' : 'opacity-0'}`}>
+          <span>חייגו עכשיו:</span>
+          <span className="dir-ltr font-bold">051-5505062</span>
+        </div>
       </a>
 
     </div>
